@@ -1,7 +1,7 @@
 # r2dbc-postgresql-codec-postgis
 
 r2dbc编解码器GeometryCodec实现
- >Jackson序列化JTS实体第三方扩展org.n52.jackson:jackson-datatype-jts:1.2.9. 
+ >Jackson序列化JTS实体第三方扩展org.n52.jackson:jackson-datatype-jts:1.2.9  
  >JTS Topology Suite(JTS)拓扑套件 (org.locationtech.jts:jts-core:1.18.1 )  
    
 # USE
