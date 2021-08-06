@@ -14,7 +14,6 @@ import reactor.util.function.Tuples;
 /**
 * 此处借鉴https://github.com/skroll/r2dbc-postgresql-codec-postgis/blob/master/src/main/java/com/github/skroll/r2dbc/postgresql/codec/postgis/PostGisCodecRegistrar.java
 * @author: bufanqi
-* @Date: 2021/8/6
 */
 public class PostGisCodecRegistrar implements CodecRegistrar {
   private static final String GEOMETRY_TYPENAME = "geometry";

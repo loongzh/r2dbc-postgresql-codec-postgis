@@ -20,8 +20,8 @@ import org.locationtech.jts.io.ParseException;
 
 /**
 * Geometry编解码器
-* @Author: bufanqi
-* @Date: 2021/8/6
+* @author bufanqi
+* TODO: 2021/8/6
 */
 public class GeometryCodec extends AbstractCodec<Geometry> {
     private final int postGreSqlObjectId=34754;

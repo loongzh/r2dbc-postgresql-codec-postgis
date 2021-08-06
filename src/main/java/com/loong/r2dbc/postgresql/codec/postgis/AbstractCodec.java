@@ -14,11 +14,8 @@ import reactor.core.publisher.Mono;
 import reactor.util.annotation.Nullable;
 
 /**
- * @program: springboot-r2dbc
- * @package com.loong.r2dbc.postgis
  * 此处引用https://github.com/pgjdbc/r2dbc-postgresql/blob/main/src/main/java/io/r2dbc/postgresql/codec/AbstractCodec.java
  * @author: bufanqi
- * @create: 2021-07-29 15:53
  **/
 abstract class AbstractCodec<T> implements Codec<T> {
 

@@ -4,16 +4,16 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.loong</groupId>
+  <groupId>com.githubs.loong</groupId>
   <artifactId>r2dbc-postgresql-codec-postgis</artifactId>
   <version>0.0.1</version>
   <distributionManagement>
     <snapshotRepository>
-      <id>ossrh</id>
+      <id>sonatype-snapshots</id>
       <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
     <repository>
-      <id>ossrh</id>
+      <id>sonatype-staging</id>
       <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
@@ -48,6 +48,25 @@
       <url>http://maven.geo-solutions.it/</url>
     </repository>
   </repositories>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>loongo</name>
+      <email>loongo.buff@gmail.com</email>
+      <url>https://github.com/loongzh</url>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://github.com/loongzh/r2dbc-postgresql-codec-postgis</url>
+    <connection>git@github.com/loongzh/r2dbc-postgresql-codec-postgis.git</connection>
+    <developerConnection>https://github.com/loongzh</developerConnection>
+  </scm>
   <dependencies>
     <dependency>
       <groupId>io.r2dbc</groupId>
@@ -65,4 +84,56 @@
       <version>${geotools.version}</version>
     </dependency>
   </dependencies>
+  <profiles>
+    <profile>
+      <id>sonatype</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.7</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>sonatype-snapshots</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.0.1</version>
+            <configuration>
+              <failOnError>false</failOnError>
+              <quiet>true</quiet>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
