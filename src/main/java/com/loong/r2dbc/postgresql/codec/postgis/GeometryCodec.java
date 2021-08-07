@@ -51,9 +51,6 @@ public class GeometryCodec extends AbstractCodec<Geometry> {
             Geometry geometry = null;
             try {
                 geometry = reader.read(WKBReader.hexToBytes(ByteBufUtils.decode(buffer)));
-                /*Map<String,String> userData=new HashMap<>(16);
-                userData.put("test","11111");
-                geometry.setUserData(userData);*/
             } catch (ParseException e) {
                 e.printStackTrace();
             }

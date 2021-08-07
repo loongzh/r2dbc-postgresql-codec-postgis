@@ -7,13 +7,16 @@
   <groupId>io.github.loongzh</groupId>
   <artifactId>r2dbc-postgresql-codec-postgis</artifactId>
   <version>0.0.1</version>
+  <name>${project.artifactId}</name>
+  <url>https://github.com/loongzh/r2dbc-postgresql-codec-postgis</url>
+  <description>R2DBC PostGis GeometryCodec</description>
   <distributionManagement>
     <snapshotRepository>
-      <id>sonatype-snapshots</id>
+      <id>ossrh</id>
       <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
     <repository>
-      <id>sonatype-staging</id>
+      <id>ossrh</id>
       <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
@@ -63,8 +66,8 @@
     </developer>
   </developers>
   <scm>
-    <url>https://github.com/loongzh/r2dbc-postgresql-codec-postgis</url>
-    <connection>git@github.com/loongzh/r2dbc-postgresql-codec-postgis.git</connection>
+    <url>${project.url}</url>
+    <connection>git@github.com:loongzh/r2dbc-postgresql-codec-postgis.git</connection>
     <developerConnection>https://github.com/loongzh</developerConnection>
   </scm>
   <dependencies>
@@ -84,56 +87,58 @@
       <version>${geotools.version}</version>
     </dependency>
   </dependencies>
-  <profiles>
-    <profile>
-      <id>sonatype</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.7</version>
-            <extensions>true</extensions>
-            <configuration>
-              <serverId>sonatype-snapshots</serverId>
-              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.0.1</version>
-            <configuration>
-              <failOnError>false</failOnError>
-              <quiet>true</quiet>
-            </configuration>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!--<plugin>-->
+        <!--<groupId>org.sonatype.plugins</groupId>-->
+        <!--<artifactId>nexus-staging-maven-plugin</artifactId>-->
+        <!--<extensions>true</extensions>-->
+        <!--<configuration>-->
+          <!--<serverId>oss</serverId>-->
+          <!--<nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
+          <!--<autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+        <!--</configuration>-->
+      <!--</plugin>-->
+    </plugins>
+  </build>
 </project>
