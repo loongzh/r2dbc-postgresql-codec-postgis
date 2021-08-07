@@ -6,7 +6,7 @@
 
   <groupId>io.github.loongzh</groupId>
   <artifactId>r2dbc-postgresql-codec-postgis</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <name>${project.artifactId}</name>
   <url>https://github.com/loongzh/r2dbc-postgresql-codec-postgis</url>
   <description>R2DBC PostGis GeometryCodec</description>
