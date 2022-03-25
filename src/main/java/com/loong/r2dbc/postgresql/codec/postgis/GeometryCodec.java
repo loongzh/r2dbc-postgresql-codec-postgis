@@ -1,12 +1,6 @@
 package com.loong.r2dbc.postgresql.codec.postgis;
 
 import static io.r2dbc.postgresql.message.Format.FORMAT_TEXT;
-import static io.r2dbc.postgresql.type.PostgresqlObjectId.BPCHAR;
-import static io.r2dbc.postgresql.type.PostgresqlObjectId.CHAR;
-import static io.r2dbc.postgresql.type.PostgresqlObjectId.NAME;
-import static io.r2dbc.postgresql.type.PostgresqlObjectId.TEXT;
-import static io.r2dbc.postgresql.type.PostgresqlObjectId.UNKNOWN;
-import static io.r2dbc.postgresql.type.PostgresqlObjectId.VARCHAR;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
@@ -14,6 +8,8 @@ import io.r2dbc.postgresql.client.Parameter;
 import io.r2dbc.postgresql.message.Format;
 import io.r2dbc.postgresql.util.Assert;
 import io.r2dbc.postgresql.util.ByteBufUtils;
+import java.util.Arrays;
+import java.util.List;
 import org.geotools.geometry.jts.WKBReader;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
@@ -24,7 +20,7 @@ import org.locationtech.jts.io.ParseException;
 * TODO: 2021/8/6
 */
 public class GeometryCodec extends AbstractCodec<Geometry> {
-    private final int postGreSqlObjectId=34754;
+    //private final List<Integer> postGreSqlObjectId= Arrays.asList(32028,34754);
     private final ByteBufAllocator byteBufAllocator;
     private final int type;
     public GeometryCodec(int type,ByteBufAllocator byteBufAllocator) {
@@ -39,14 +35,15 @@ public class GeometryCodec extends AbstractCodec<Geometry> {
         Assert.requireNonNull(format, "format must not be null");
         Assert.requireNonNull(type, "type must not be null");
 
-        return postGreSqlObjectId == type;
-  }
+        //return postGreSqlObjectId.contains(type);
+        return true;
+    }
 
     @Override Geometry doDecode(ByteBuf buffer, int dataType, Format format, Class<? extends Geometry> type) {
         if (buffer == null) {
             return null;
         }
-        if(dataType==postGreSqlObjectId){
+        //if(postGreSqlObjectId.contains(dataType)){
             WKBReader reader = new WKBReader();
             Geometry geometry = null;
             try {
@@ -55,10 +52,10 @@ public class GeometryCodec extends AbstractCodec<Geometry> {
                 e.printStackTrace();
             }
             return geometry;
-        }else {
+        /*}else {
             System.out.println(ByteBufUtils.decode(buffer));
         }
-        return null;
+        return null;*/
     }
 
 
@@ -67,7 +64,7 @@ public class GeometryCodec extends AbstractCodec<Geometry> {
   }
 
   @Override public Parameter encodeNull() {
-      return createNull(postGreSqlObjectId, FORMAT_TEXT);
+      return createNull(type, FORMAT_TEXT);
   }
 
 }
