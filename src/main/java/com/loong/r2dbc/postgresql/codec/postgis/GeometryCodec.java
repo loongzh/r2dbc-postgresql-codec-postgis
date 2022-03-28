@@ -8,11 +8,10 @@ import io.r2dbc.postgresql.client.Parameter;
 import io.r2dbc.postgresql.message.Format;
 import io.r2dbc.postgresql.util.Assert;
 import io.r2dbc.postgresql.util.ByteBufUtils;
-import java.util.Arrays;
-import java.util.List;
 import org.geotools.geometry.jts.WKBReader;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTWriter;
 
 /**
 * Geometry编解码器
@@ -20,7 +19,7 @@ import org.locationtech.jts.io.ParseException;
 * TODO: 2021/8/6
 */
 public class GeometryCodec extends AbstractCodec<Geometry> {
-    //private final List<Integer> postGreSqlObjectId= Arrays.asList(32028,34754);
+    /**private final List<Integer> postGreSqlObjectId= Arrays.asList(32028,34754);*/
     private final ByteBufAllocator byteBufAllocator;
     private final int type;
     public GeometryCodec(int type,ByteBufAllocator byteBufAllocator) {
@@ -35,7 +34,7 @@ public class GeometryCodec extends AbstractCodec<Geometry> {
         Assert.requireNonNull(format, "format must not be null");
         Assert.requireNonNull(type, "type must not be null");
 
-        //return postGreSqlObjectId.contains(type);
+        /// return postGreSqlObjectId.contains(type);
         return true;
     }
 
@@ -43,7 +42,7 @@ public class GeometryCodec extends AbstractCodec<Geometry> {
         if (buffer == null) {
             return null;
         }
-        //if(postGreSqlObjectId.contains(dataType)){
+        /// if(postGreSqlObjectId.contains(dataType)){
             WKBReader reader = new WKBReader();
             Geometry geometry = null;
             try {
@@ -57,10 +56,9 @@ public class GeometryCodec extends AbstractCodec<Geometry> {
         }
         return null;*/
     }
-
-
     @Override Parameter doEncode(Geometry value) {
-    return create(type,Format.FORMAT_TEXT, () ->  ByteBufUtils.encode(this.byteBufAllocator,value.toText()));
+        WKTWriter wktWriter=new WKTWriter(value.getCoordinate().z != 0.0?3:2);
+        return create(type,Format.FORMAT_TEXT, () ->  ByteBufUtils.encode(this.byteBufAllocator, wktWriter.write(value)));
   }
 
   @Override public Parameter encodeNull() {
