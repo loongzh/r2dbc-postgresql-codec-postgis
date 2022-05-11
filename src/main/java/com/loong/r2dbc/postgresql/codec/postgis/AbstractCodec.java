@@ -83,7 +83,7 @@ abstract class AbstractCodec<T> implements Codec<T> {
      * @param format the format to use
      * @param value  {@link Publisher} emitting {@link ByteBuf buffers}
      * @return the encoded  {@link Parameter}
-     * @implNote use deferred buffer creation instead of {@link Mono#just(Object)} and {@link Flux#just(Object)} to avoid memory
+     * @implNote use deferred buffer creation instead of {@link Mono#just(Object)}  to avoid memory
      * leaks
      */
     static Parameter create(int type, Format format, Publisher<? extends ByteBuf> value) {
